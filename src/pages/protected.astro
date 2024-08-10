@@ -27,7 +27,11 @@ if (!isLoggedIn || !user) {
   return Astro.redirect("/login");
 }
 
-const { avatar, email, emailVerified, name } = user;
+const { avatar, email, name } = user;
+const firebaseUser = firebase.auth.currentUser;
+
+await firebase.auth.currentUser?.reload();
+const { emailVerified } = firebaseUser!;
 ---
 
 <MainLayout title="Welcome to Astro.">
